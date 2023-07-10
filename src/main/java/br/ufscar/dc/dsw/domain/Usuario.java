@@ -5,15 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 @Entity
 @Table(name = "Usuario")
-public class Usuario extends AbstractEntity<Long> {
+public abstract class Usuario extends AbstractEntity<Long> {
   
-	@NotBlank
-    @Column(nullable = false, length = 20, unique = true)
+//	@NotBlank
+    @Column(length = 20, unique = true)
     private String username;
-    
+
+	@NotBlank
+	@Column(nullable = false, length = 40, unique = true)
+	private String email;
+
 	@NotBlank
     @Column(nullable = false, length = 64)
     private String password;
@@ -23,12 +27,8 @@ public class Usuario extends AbstractEntity<Long> {
     private String name;
     
     @NotBlank
-    @Column(nullable = false, length = 14)
-    private String CPF;
-    
-    @NotBlank
     @Column(nullable = false, length = 10)
-    private String role;
+    protected String role;
     
     @Column(nullable = false)
     private boolean enabled;
@@ -56,15 +56,6 @@ public class Usuario extends AbstractEntity<Long> {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	public String getCPF() {
-		return CPF;
-	}
-
-	public void setCPF(String cPF) {
-		CPF = cPF;
-	}
 
 	public String getRole() {
 		return role;
@@ -80,5 +71,13 @@ public class Usuario extends AbstractEntity<Long> {
 	
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
