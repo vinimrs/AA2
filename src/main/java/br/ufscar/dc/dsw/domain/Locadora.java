@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Locadora")
@@ -20,6 +21,9 @@ public class Locadora extends Usuario {
     @NotBlank
     @Column(length = 50)
     private String city;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "rentalCompany")
+    private List<Locacao> locacoes;
 
     public Locadora() {
         this.role = "LOCADORA";

@@ -1,6 +1,5 @@
 package br.ufscar.dc.dsw;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import br.ufscar.dc.dsw.dao.*;
@@ -12,10 +11,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class LivrariaMvcApplication {
+public class LocadoraMVC {
 
     public static void main(String[] args) {
-        SpringApplication.run(LivrariaMvcApplication.class, args);
+        SpringApplication.run(LocadoraMVC.class, args);
     }
 
     @Bean

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Cliente")
@@ -28,6 +29,9 @@ public class Cliente extends Usuario {
     @NotBlank
     @Column(columnDefinition = "Date")
     private LocalDate birthDate;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "client")
+    private List<Locacao> locacoes;
 
     public Cliente() {
         this.role = "CLIENTE";

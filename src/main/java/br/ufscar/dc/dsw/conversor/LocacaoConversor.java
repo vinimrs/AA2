@@ -1,19 +1,20 @@
 package br.ufscar.dc.dsw.conversor;
 
+import br.ufscar.dc.dsw.domain.Locacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import br.ufscar.dc.dsw.service.spec.ILivroService;
+import br.ufscar.dc.dsw.service.spec.ILocacaoService;
 
 @Component
-public class LivroConversor implements Converter<String, Livro>{
+public class LocacaoConversor implements Converter<String, Locacao>{
 
 	@Autowired
-	private ILivroService service;
+	private ILocacaoService service;
 	
 	@Override
-	public Livro convert(String text) {
+	public Locacao convert(String text) {
 		
 		if (text.isEmpty()) {
 		 return null;	

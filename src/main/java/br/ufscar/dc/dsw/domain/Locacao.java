@@ -6,15 +6,17 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "Locacao")
+@Table(name = "Locacao",
+        uniqueConstraints = @UniqueConstraint(columnNames = { "hour", "date", "client_id"})
+)
 public class Locacao extends AbstractEntity<Long> {
 
     @NotNull
-    @Column(nullable = false, columnDefinition = "Time")
+    @Column(nullable = false, columnDefinition = "Time", name = "hour")
     private LocalTime hour;
 
     @NotNull
-    @Column(nullable = false, columnDefinition = "Date")
+    @Column(nullable = false, columnDefinition = "Date", name = "date")
     private LocalDate date;
 
     @NotNull(message = "{NotNull.locacao.locadora}")

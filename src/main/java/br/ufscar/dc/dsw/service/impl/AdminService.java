@@ -1,22 +1,23 @@
 package br.ufscar.dc.dsw.service.impl;
 
-import java.util.List;
-
+import br.ufscar.dc.dsw.dao.IAdminDAO;
+import br.ufscar.dc.dsw.domain.Admin;
+import br.ufscar.dc.dsw.service.spec.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.ufscar.dc.dsw.service.spec.ILivroService;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = false)
-public class LivroService implements ILivroService {
+public class AdminService implements IAdminService {
 
 	@Autowired
-	ILivroDAO dao;
-	
-	public void salvar(Livro livro) {
-		dao.save(livro);
+	IAdminDAO dao;
+
+	public void salvar(Admin admin) {
+		dao.save(admin);
 	}
 
 	public void excluir(Long id) {
@@ -24,12 +25,12 @@ public class LivroService implements ILivroService {
 	}
 
 	@Transactional(readOnly = true)
-	public Livro buscarPorId(Long id) {
+	public Admin buscarPorId(Long id) {
 		return dao.findById(id.longValue());
 	}
 
 	@Transactional(readOnly = true)
-	public List<Livro> buscarTodos() {
+	public List<Admin> buscarTodos() {
 		return dao.findAll();
 	}
 }

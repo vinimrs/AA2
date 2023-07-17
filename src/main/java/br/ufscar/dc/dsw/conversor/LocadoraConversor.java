@@ -1,7 +1,7 @@
 package br.ufscar.dc.dsw.conversor;
 
 import br.ufscar.dc.dsw.domain.Locadora;
-import br.ufscar.dc.dsw.service.spec.IEditoraService;
+import br.ufscar.dc.dsw.service.spec.ILocadoraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
