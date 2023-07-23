@@ -14,7 +14,7 @@ public class Locadora extends Usuario {
 
     @UniqueCNPJ(message = "{Unique.locadora.CNPJ}")
     @NotBlank
-    @Size(min = 15, max = 15, message = "{Size.locadora.CNPJ}")
+    @Size(min = 18, max = 18, message = "{Size.locadora.CNPJ}")
     @Column(unique = true)
     private String cnpj;
 
@@ -26,7 +26,7 @@ public class Locadora extends Usuario {
     private List<Locacao> locacoes;
 
     public Locadora() {
-        this.role = "LOCADORA";
+        this.role = "ROLE_LOCADORA";
     }
 
     public String getCnpj() {
@@ -43,5 +43,9 @@ public class Locadora extends Usuario {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public List<Locacao> getLocacoes() {
+        return locacoes;
     }
 }

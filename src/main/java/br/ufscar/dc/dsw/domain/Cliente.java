@@ -14,7 +14,7 @@ public class Cliente extends Usuario {
 
 //    @UniqueCPF(message = "{Unique.editora.CNPJ}")
     @NotBlank
-    @Size(min = 15, max = 15)
+    @Size(min = 14, max = 14)
     @Column(unique = true)
     private String cpf;
 
@@ -22,11 +22,11 @@ public class Cliente extends Usuario {
     @Size(min = 15, max = 15)
     private String phoneNumber;
 
-    @NotBlank
+//    @NotBlank
     @Enumerated(EnumType.STRING)
     private Sexo sex;
 
-    @NotBlank
+//    @NotBlank
     @Column(columnDefinition = "Date")
     private LocalDate birthDate;
 
@@ -34,7 +34,7 @@ public class Cliente extends Usuario {
     private List<Locacao> locacoes;
 
     public Cliente() {
-        this.role = "CLIENTE";
+        this.role = "ROLE_CLIENTE";
     }
 
     public String getCpf() {

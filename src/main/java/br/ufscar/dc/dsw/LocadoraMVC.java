@@ -45,9 +45,9 @@ public class LocadoraMVC {
 
             Locadora u3 = new Locadora();
             u3.setUsername("fulano");
-            u2.setEmail("locadora@locadora");
+            u3.setEmail("locadora@locadora");
             u3.setPassword(encoder.encode("123"));
-            u3.setCnpj("XX.XXX.XXX/0001-XX");
+            u3.setCnpj("11.111.111/0001-11");
             u3.setCity("Cidade");
             u3.setName("Fulano Silva");
 //            u3.setRole("ROLE_USER");

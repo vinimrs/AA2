@@ -1,5 +1,6 @@
 package br.ufscar.dc.dsw.dao;
 
+import br.ufscar.dc.dsw.domain.Locacao;
 import br.ufscar.dc.dsw.domain.Locadora;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,9 +13,15 @@ public interface ILocadoraDAO extends CrudRepository<Locadora, Long>{
 
 	Locadora findByCnpj(String cnpj);
 
+	Locadora findByEmail(String email);
+
 	List<Locadora> findAll();
+
+	List<Locadora> findAllByCity(String city);
 	
 	Locadora save(Locadora locadora);
 
 	void deleteById(Long id);
+
+
 }

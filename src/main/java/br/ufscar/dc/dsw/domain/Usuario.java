@@ -12,27 +12,27 @@ import javax.validation.constraints.NotBlank;
 public abstract class Usuario extends AbstractEntity<Long> {
   
 //	@NotBlank
-    @Column(length = 20, unique = true)
-    private String username;
+	@Column(length = 20, unique = true)
+	private String username;
 
 	@NotBlank
 	@Column(nullable = false, length = 40, unique = true)
 	private String email;
 
 	@NotBlank
-    @Column(nullable = false, length = 64)
-    private String password;
-       
-    @NotBlank
-    @Column(nullable = false, length = 60)
-    private String name;
-    
-    @NotBlank
-    @Column(nullable = false, length = 10)
-    protected String role;
-    
-    @Column(nullable = false)
-    private boolean enabled;
+	@Column(nullable = false, length = 64)
+	private String password;
+
+	@NotBlank
+	@Column(nullable = false, length = 60)
+	private String name;
+
+	@NotBlank
+	@Column(nullable = false, length = 20)
+	protected String role;
+
+	@Column(nullable = false)
+	private boolean enabled;
 		
 	public String getUsername() {
 		return username;

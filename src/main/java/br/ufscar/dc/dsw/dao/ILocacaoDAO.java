@@ -13,9 +13,9 @@ public interface ILocacaoDAO extends CrudRepository<Locacao, Long>{
 
 	Locacao findById(long id);
 
-	List<Locacao> findAllByCliente(Cliente c);
+	List<Locacao> findAllByClient(Cliente client);
 
-	List<Locacao> findAllByLocadora(Locadora l);
+	List<Locacao> findAllByRentalCompany(Locadora l);
 
 	Locacao save(Locacao locacao);
 }

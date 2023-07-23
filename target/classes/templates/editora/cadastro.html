@@ -23,7 +23,8 @@
 
 			<div th:replace="fragments/alert"></div>
 
-			<form
+			<form>
+<!--					th:action="@{${myObject != null && !maybesomethingelse ? '/edit' : '/new'}}"  -->
 				th:action="${editora.id == null} ? @{/editoras/salvar} : @{/editoras/editar}"
 				th:object="${editora}" method="POST">
 

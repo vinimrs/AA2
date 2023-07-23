@@ -8,8 +8,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "Admin")
 public class Admin extends Usuario {
-    @Override
-    public String getRole() {
-        return "ADMIN";
+    public Admin() {
+        this.role = "ROLE_ADMIN";
     }
 }
