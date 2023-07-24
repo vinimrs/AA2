@@ -1,53 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout2}">
+			xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout2}">
 <head>
-    <title th:text="#{login.message}"></title>
+	<title th:text="#{login.message}"></title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
 
-    <br/> <br/> <br/>
-    <div class="container row align-items-center">
-        <div class="col-md-6">
-            <h1 th:text="#{login.services.title}">Acesse nossos serviços</h1>
-            <div>
-                <a th:href="@{/explorar/locadoras}">
-                    <button class="form-control btn btn-info px-1" th:text="#{login.services.locadoras}">Quero conhecer
-                        as locadoras
-                    </button>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h1 th:text="#{login.message}"></h1>
-            <form th:action="@{/login}" method="post">
-                <div th:if="${param.error}">
-                    <div class="alert alert-danger">
-                        <span th:text="#{login.error}"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="username" th:text="#{login.username}"></label>: <input
-                        type="text" id="username" name="username" class="form-control"
-                        autofocus="autofocus" th:placeholder="#{login.username}">
-                </div>
-                <div class="form-group">
-                    <label for="password" th:text="#{login.password}"></label>: <input
-                        type="password" id="password" name="password"
-                        class="form-control" th:placeholder="#{login.password}">
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-4 col-sm-offset-3">
-                            <input type="submit" name="login-submit" id="login-submit"
-                                   class="form-control btn btn-info px-1" th:value="#{login.button}">
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+	<br/> <br/> <br/>
+	<div class="container row align-items-center justify-content-center pt-5">
+		<div class="col-md-6 container h-100 d-flex flex-column justify-content-around text-center">
+			<h1 class="mb-3" th:text="#{login.services.title}">Acesse nossos serviços</h1>
+			<div>
+				<img alt="" th:src="@{/image/bikes.jpg}" style="width:400px;">
+				<a th:href="@{/explorar/locadoras}">
+					<button class="form-control btn btn-info px-1 w-75">
+
+						<span th:text="#{login.services.locadoras}">
+                            Quero conhecer as locadoras
+                        </span>
+					</button>
+				</a>
+			</div>
+
+		</div>
+		<div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+			<h1 th:text="#{login.message}"></h1>
+			<form class="w-50" th:action="@{/login}" method="post">
+				<div th:if="${param.error}">
+					<div class="alert alert-danger">
+						<span th:text="#{login.error}"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="username" th:text="#{login.username}"></label>: <input
+						type="text" id="username" name="username" class="form-control"
+						autofocus="autofocus" th:placeholder="#{login.username}">
+				</div>
+				<div class="form-group">
+					<label for="password" th:text="#{login.password}"></label>: <input
+						type="password" id="password" name="password"
+						class="form-control" th:placeholder="#{login.password}">
+				</div>
+				<div class="form-group">
+					<button type="submit" name="login-submit" id="login-submit"
+									class="form-control btn btn-info" th:text="#{login.button}">Login
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 </body>
 </html>
