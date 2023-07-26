@@ -12,7 +12,7 @@
 		<div th:replace="fragments/alert"></div>
 	</div>
 
-	<div class="container row align-items-center justify-content-center">
+	<div class="container row align-items-start justify-content-start">
 
 
 		<div class="col-6 h-100 pl-0">
@@ -47,17 +47,25 @@
 			</div>
 		</div>
 
-		<div class="col-6 text-center" id="listagem">
+		<div class="col-6 text-center pt-1" id="listagem">
 			<h3 th:text="#{explore.locadoras.filter.title}">Filtre as locadoras por cidade!</h3>
 			<form class="d-flex flex-column align-items-center" method="GET" th:action="@{''(city=pt)}">
 				<label for="filtro" th:text="#{explore.locadoras.filter.label}">Filtre por cidade</label>
-				<input th:value="${city}" type="text" name="city" id="filtro" class="form-control w-75"
-							 th:placeholder="#{explore.locadoras.filter.placeholder}"/>
+				<select onchange="this.form.submit()" th:value="${city}"
+								name="city" id="filtro" class="form-control w-75"
+				>
+					<option th:selected="${city == null || city.isEmpty()} ? false : true" th:value="null"
+									th:text="#{explore.locadoras.filter.option}">Todas
+					</option>
+					<option th:each="cityOp : ${cities}" th:selected="${city == cityOp} ? true : false"
+									th:value="${cityOp}"
+									th:text="${cityOp}"></option>
+				</select>
 				<div class="w-100">
-					<button type="submit" class="btn btn-info mt-2 w-25 d-inline" th:text="#{explore.locadoras.filter.button}">
-						Filtrar
-					</button>
-					<a th:href="@{/explorar/locadoras}">
+					<!--					<button type="submit" class="btn btn-info mt-2 w-25 d-inline" th:text="#{explore.locadoras.filter.button}">-->
+					<!--						Filtrar-->
+					<!--					</button>-->
+					<a th:if="${city} != null" th:href="@{/explorar/locadoras}">
 						<button type="button" class="btn btn-secondary mt-2 d-inline"
 										th:text="#{explore.locadoras.filter.clearbutton}">
 							Limpar filtro
@@ -68,6 +76,8 @@
 
 			</form>
 		</div>
+
+
 	</div>
 
 	<div th:replace="fragments/modal :: modal"></div>

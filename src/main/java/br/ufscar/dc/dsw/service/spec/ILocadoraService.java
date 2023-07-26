@@ -7,21 +7,23 @@ import java.util.List;
 
 public interface ILocadoraService {
 
-	Locadora buscarPorId(Long id);
-	
-	List<Locadora> buscarTodos();
+  Locadora buscarPorId(Long id);
 
-	void salvar(Locadora locadora);
-	
-	void excluir(Long id);
+  List<Locadora> buscarTodos();
 
-	public List<Locacao> buscarLocacoesPorCnpj(String cnpj);
+  void salvar(Locadora locadora);
 
-	public List<Locadora> buscarPorCidade(String city);
+  void excluir(Long id);
 
-	public Locadora buscarPorCNPJ(String cnpj);
+  public List<Locacao> buscarLocacoesPorCnpj(String cnpj);
 
-	public Locadora buscarPorEmail(String email);
+  public List<Locadora> buscarPorCidade(String city);
 
-	
+  public Locadora buscarPorCNPJ(String cnpj);
+
+  public Locadora buscarPorEmail(String email);
+
+  public List<String> buscarCidades();
+
+
 }

@@ -13,23 +13,25 @@ import java.util.List;
 @RequestMapping("/explorar")
 public class ExploreController {
 
-    @Autowired
-    private ILocadoraService locadoraService;
+  @Autowired
+  private ILocadoraService locadoraService;
 
-    @GetMapping("/locadoras")
-    public String listar(@RequestParam(required = false) String city, ModelMap model) {
-        System.out.println("city" + city);
-
-        List<Locadora> locadoras;
-        if (city != null && !city.isEmpty()) {
-            locadoras = locadoraService.buscarPorCidade(city);
-            model.addAttribute("city", city);
-        } else {
-            locadoras = locadoraService.buscarTodos();
-        }
-
-        model.addAttribute("locadoras", locadoras);
-        return "explorar/locadoras";
+  @GetMapping("/locadoras")
+  public String listar(@RequestParam(required = false) String city, ModelMap model) {
+    
+    List<Locadora> locadoras;
+    if (city != null && !city.isEmpty()) {
+      locadoras = locadoraService.buscarPorCidade(city);
+      model.addAttribute("city", city);
+    } else {
+      locadoras = locadoraService.buscarTodos();
     }
+
+    List<String> cidades = locadoraService.buscarCidades();
+
+    model.addAttribute("cities", cidades);
+    model.addAttribute("locadoras", locadoras);
+    return "explorar/locadoras";
+  }
 
 }
