@@ -26,6 +26,11 @@ public class AdminController {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
+	@GetMapping("/listar")
+	public String listar(ModelMap model) {
+		model.addAttribute("admins", adminService.buscarTodos());
+		return "admin/lista";
+	}
 	@GetMapping("/cadastrar")
 	public String cadastrar(Admin admin) {
 		return "admin/cadastro";
