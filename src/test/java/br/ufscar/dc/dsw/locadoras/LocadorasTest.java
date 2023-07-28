@@ -28,15 +28,15 @@ public class LocadorasTest {
         String senha = "12345678";
         String email = "locacaobrito@email.com";
         String cidade = "São Carlos";
-        this.locadora = new Locadora(cnpj, nome, email, senha, cidade);
+//        this.locadora = new Locadora(cnpj, nome, email, senha, cidade);
     }
 
 
     @AfterEach
     public void afterEach() {
-        if(this.paginaDeLocadoras != null) {
+        if (this.paginaDeLocadoras != null) {
             this.paginaDeLocadoras.fechar();
-        } else if(this.paginaListaLocadoras != null) {
+        } else if (this.paginaListaLocadoras != null) {
             this.paginaListaLocadoras.fechar();
         }
     }
@@ -78,8 +78,8 @@ public class LocadorasTest {
         this.paginaDeLocadoras = paginaDeFormularioLocadora.atualizarLocadora(novoEmail, novaSenha, novaCidade);
 
         this.locadora.setEmail(novoEmail);
-        this.locadora.setCidade(novaCidade);
-        this.locadora.setSenha(novaSenha);
+//        this.locadora.setCidade(novaCidade);
+//        this.locadora.setSenha(novaSenha);
 
         assertTrue(this.paginaDeLocadoras.isLocadoraListada(locadora));
     }

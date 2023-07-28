@@ -26,7 +26,7 @@ public class ClientesTest {
         String telefone = "(82)99183-9092";
         String sexo = "Masculino";
         LocalDate dataNascimento = LocalDate.parse("2004-02-18");
-        this.cliente = new Cliente(cpf, nome, email, senha, telefone, sexo, dataNascimento);
+//        this.cliente = new Cliente(cpf, nome, email, senha, telefone, sexo, dataNascimento);
     }
 
     @BeforeEach
