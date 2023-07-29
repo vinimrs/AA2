@@ -1,26 +1,26 @@
 package br.ufscar.dc.dsw.controller;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
+import br.ufscar.dc.dsw.domain.Admin;
 import br.ufscar.dc.dsw.domain.Cliente;
-import br.ufscar.dc.dsw.domain.Locadora;
+import br.ufscar.dc.dsw.service.spec.IAdminService;
 import br.ufscar.dc.dsw.service.spec.IClienteService;
-import br.ufscar.dc.dsw.service.spec.ILocadoraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufscar.dc.dsw.service.spec.ILocacaoService;
+import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("/clientes")
@@ -32,9 +32,28 @@ public class ClienteController {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
+	@GetMapping("/listar")
+	public String listar(ModelMap model) {
+		model.addAttribute("clientes", clienteService.buscarTodos());
+		return "cliente/lista";
+	}
 	@GetMapping("/cadastrar")
 	public String cadastrar(Cliente cliente) {
 		return "cliente/cadastro";
+	}
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text) throws IllegalArgumentException {
+				// Convert the String date from the HTML form to LocalDate
+				// Adjust the date pattern as per your HTML date input format
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				LocalDate date = LocalDate.parse(text, formatter);
+				setValue(date);
+			}
+		});
 	}
 
 	@PostMapping("/salvar")
@@ -72,7 +91,7 @@ public class ClienteController {
 	public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
 		clienteService.excluir(id);
 		attr.addFlashAttribute("sucess", "cliente.delete.sucess"); // atributo para enviar mensagem de sucesso no
-																																		// redirect
+		// redirect
 		return "redirect:/clientes/listar";
 	}
 
