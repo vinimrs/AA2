@@ -111,12 +111,14 @@ public class LocadoraController {
   @PostMapping("/editar")
   public String editar(@Valid Locadora locadora, BindingResult result, RedirectAttributes attr) {
 
-    // Apenas rejeita se o problema não for com o CNPJ (CNPJ campo read-only)
 
-    if (result.getFieldErrorCount() > 1 || result.getFieldError("cnpj") == null) {
+    // Apenas rejeita se o problema não for com o CNPJ, EMAIL ou USERNAME (Read-onlys)
+    if (result.getFieldErrorCount() > 3
+        || result.getFieldError("cnpj") == null
+        || result.getFieldError("email") == null
+        || result.getFieldError("username") == null) {
       return "locadora/cadastro";
     }
-
     service.salvar(locadora);
     attr.addFlashAttribute("sucess", "locadora.edit.sucess");
     return "redirect:/locadoras/listar";

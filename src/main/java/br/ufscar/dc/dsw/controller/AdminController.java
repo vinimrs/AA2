@@ -20,62 +20,65 @@ import javax.validation.Valid;
 @RequestMapping("/admins")
 public class AdminController {
 
-	@Autowired
-	private IAdminService adminService;
+  @Autowired
+  private IAdminService adminService;
 
-	@Autowired
-	private BCryptPasswordEncoder encoder;
+  @Autowired
+  private BCryptPasswordEncoder encoder;
 
-	@GetMapping("/listar")
-	public String listar(ModelMap model) {
-		model.addAttribute("admins", adminService.buscarTodos());
-		return "admin/lista";
-	}
-	@GetMapping("/cadastrar")
-	public String cadastrar(Admin admin) {
-		return "admin/cadastro";
-	}
+  @GetMapping("/listar")
+  public String listar(ModelMap model) {
+    model.addAttribute("admins", adminService.buscarTodos());
+    return "admin/lista";
+  }
 
-	@PostMapping("/salvar")
-	public String salvar(@Valid Admin admin, BindingResult result, RedirectAttributes attr) {
+  @GetMapping("/cadastrar")
+  public String cadastrar(Admin admin) {
+    return "admin/cadastro";
+  }
 
-		if (result.hasErrors()) {
-			return "admin/cadastro";
-		}
+  @PostMapping("/salvar")
+  public String salvar(@Valid Admin admin, BindingResult result, RedirectAttributes attr) {
+    if (result.hasErrors()) {
+      return "admin/cadastro";
+    }
 
-		admin.setPassword(encoder.encode(admin.getPassword()));
-		adminService.salvar(admin);
-		attr.addFlashAttribute("success", "admin.create.success");
-		return "redirect:/admins/listar";
-	}
+    admin.setPassword(encoder.encode(admin.getPassword()));
+    adminService.salvar(admin);
+    attr.addFlashAttribute("sucess", "admin.create.sucess");
+    return "redirect:/admins/listar";
+  }
 
-	@GetMapping("/editar/{id}")
-	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("admin", adminService.buscarPorId(id));
-		return "admin/cadastro";
-	}
+  @GetMapping("/editar/{id}")
+  public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+    model.addAttribute("admin", adminService.buscarPorId(id));
+    return "admin/cadastro";
+  }
 
-	@PostMapping("/editar")
-	public String editar(@Valid Admin Admin, BindingResult result, RedirectAttributes attr) {
+  @PostMapping("/editar")
+  public String editar(@Valid Admin Admin, BindingResult result, RedirectAttributes attr) {
 
-		if (result.hasErrors()) {
-			return "admin/cadastro";
-		}
+    // Apenas rejeita se o problema não for com o CPF, EMAIL ou USERNAME (Read-onlys)
+    if (result.getFieldErrorCount() > 2
+        || result.getFieldError("email") == null
+        || result.getFieldError("username") == null) {
+      return "admin/cadastro";
+    }
 
-		adminService.salvar(Admin);
-		attr.addFlashAttribute("sucess", "admin.edit.sucess");
-		return "redirect:/admins/listar";
-	}
+    adminService.salvar(Admin);
+    attr.addFlashAttribute("sucess", "admin.edit.sucess");
+    return "redirect:/admins/listar";
+  }
 
-	@GetMapping("/excluir/{id}")
-	public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
-		adminService.excluir(id);
-		attr.addFlashAttribute("sucess", "admin.delete.sucess"); // atributo para enviar mensagem de sucesso no
-																																		// redirect
-		return "redirect:/admins/listar";
-	}
+  @GetMapping("/excluir/{id}")
+  public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
+    adminService.excluir(id);
+    attr.addFlashAttribute("sucess", "admin.delete.sucess"); // atributo para enviar mensagem de sucesso no
+    // redirect
+    return "redirect:/admins/listar";
+  }
 
-	// este atrtbuto será geral e poderá ser acessado por todas as views que utilizem este controller
+  // este atrtbuto será geral e poderá ser acessado por todas as views que utilizem este controller
 //	@ModelAttribute("locadoras")
 //	public List<Locadora> listaLocadoras() {
 //		return locadoraService.buscarTodos();

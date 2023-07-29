@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="UTF-8" />
+	<meta charset="UTF-8"/>
 </head>
 <body>
 <section class="layout-content" layout:fragment="corpo">
@@ -36,11 +36,12 @@
 				</thead>
 				<tbody>
 				<tr th:each="admin : ${admins}">
+					<td th:text="${admin.id}"></td>
 					<td th:text="${admin.name}"></td>
 					<td th:text="${admin.email}"></td>
 					<td colspan="2">
 						<a class="btn btn-info btn-sm" th:href="@{/admins/editar/{id} (id=${admin.id}) }"
-						   role="button">
+							 role="button">
 							<span class="oi oi-brush" th:title="#{link.editar.label}" aria-hidden="true"> </span>
 						</a>
 						<button

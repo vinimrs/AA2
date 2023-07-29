@@ -26,76 +26,80 @@ import java.time.format.DateTimeFormatter;
 @RequestMapping("/clientes")
 public class ClienteController {
 
-	@Autowired
-	private IClienteService clienteService;
+  @Autowired
+  private IClienteService clienteService;
 
-	@Autowired
-	private BCryptPasswordEncoder encoder;
+  @Autowired
+  private BCryptPasswordEncoder encoder;
 
-	@GetMapping("/listar")
-	public String listar(ModelMap model) {
-		model.addAttribute("clientes", clienteService.buscarTodos());
-		return "cliente/lista";
-	}
-	@GetMapping("/cadastrar")
-	public String cadastrar(Cliente cliente) {
-		return "cliente/cadastro";
-	}
+  @GetMapping("/listar")
+  public String listar(ModelMap model) {
+    model.addAttribute("clientes", clienteService.buscarTodos());
+    return "cliente/lista";
+  }
 
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
-			@Override
-			public void setAsText(String text) throws IllegalArgumentException {
-				// Convert the String date from the HTML form to LocalDate
-				// Adjust the date pattern as per your HTML date input format
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-				LocalDate date = LocalDate.parse(text, formatter);
-				setValue(date);
-			}
-		});
-	}
+  @GetMapping("/cadastrar")
+  public String cadastrar(Cliente cliente) {
+    return "cliente/cadastro";
+  }
 
-	@PostMapping("/salvar")
-	public String salvar(@Valid Cliente cliente, BindingResult result, RedirectAttributes attr) {
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+    binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+      @Override
+      public void setAsText(String text) throws IllegalArgumentException {
+        // Convert the String date from the HTML form to LocalDate
+        // Adjust the date pattern as per your HTML date input format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(text, formatter);
+        setValue(date);
+      }
+    });
+  }
 
-		if (result.hasErrors()) {
-			return "cliente/cadastro";
-		}
+  @PostMapping("/salvar")
+  public String salvar(@Valid Cliente cliente, BindingResult result, RedirectAttributes attr) {
+    if (result.hasErrors()) {
+      return "cliente/cadastro";
+    }
 
-		cliente.setPassword(encoder.encode(cliente.getPassword()));
-		clienteService.salvar(cliente);
-		attr.addFlashAttribute("success", "cliente.create.success");
-		return "redirect:/clientes/listar";
-	}
+    cliente.setPassword(encoder.encode(cliente.getPassword()));
+    clienteService.salvar(cliente);
+    attr.addFlashAttribute("sucess", "cliente.create.success");
+    return "redirect:/clientes/listar";
+  }
 
-	@GetMapping("/editar/{id}")
-	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("cliente", clienteService.buscarPorId(id));
-		return "cliente/cadastro";
-	}
+  @GetMapping("/editar/{id}")
+  public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+    model.addAttribute("cliente", clienteService.buscarPorId(id));
+    return "cliente/cadastro";
+  }
 
-	@PostMapping("/editar")
-	public String editar(@Valid Cliente Cliente, BindingResult result, RedirectAttributes attr) {
+  @PostMapping("/editar")
+  public String editar(@Valid Cliente Cliente, BindingResult result, RedirectAttributes attr) {
 
-		if (result.hasErrors()) {
-			return "cliente/cadastro";
-		}
+    // Apenas rejeita se o problema não for com o CPF, EMAIL ou USERNAME (Read-onlys)
+    if (result.getFieldErrorCount() > 3
+        || result.getFieldError("cpf") == null
+        || result.getFieldError("email") == null
+        || result.getFieldError("username") == null) {
+      return "cliente/cadastro";
+    }
 
-		clienteService.salvar(Cliente);
-		attr.addFlashAttribute("sucess", "cliente.edit.sucess");
-		return "redirect:/clientes/listar";
-	}
+    clienteService.salvar(Cliente);
+    attr.addFlashAttribute("sucess", "cliente.edit.sucess");
+    return "redirect:/clientes/listar";
+  }
 
-	@GetMapping("/excluir/{id}")
-	public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
-		clienteService.excluir(id);
-		attr.addFlashAttribute("sucess", "cliente.delete.sucess"); // atributo para enviar mensagem de sucesso no
-		// redirect
-		return "redirect:/clientes/listar";
-	}
+  @GetMapping("/excluir/{id}")
+  public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
+    clienteService.excluir(id);
+    attr.addFlashAttribute("sucess", "cliente.delete.sucess"); // atributo para enviar mensagem de sucesso no
+    // redirect
+    return "redirect:/clientes/listar";
+  }
 
-	// este atrtbuto será geral e poderá ser acessado por todas as views que utilizem este controller
+  // este atrtbuto será geral e poderá ser acessado por todas as views que utilizem este controller
 //	@ModelAttribute("locadoras")
 //	public List<Locadora> listaLocadoras() {
 //		return locadoraService.buscarTodos();

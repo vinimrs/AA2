@@ -1,4 +1,4 @@
-package br.ufscar.dc.dsw.validation;
+package br.ufscar.dc.dsw.validation.uniques;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,7 +12,9 @@ import javax.validation.Payload;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueCPF {
-    String message() default "CPF is already registered";
-    Class<?>[] groups() default { };
-    Class<? extends Payload>[] payload() default { };
+  String message() default "CPF is already registered";
+
+  Class<?>[] groups() default {};
+
+  Class<? extends Payload>[] payload() default {};
 }
