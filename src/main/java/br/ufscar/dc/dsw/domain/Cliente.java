@@ -1,6 +1,6 @@
 package br.ufscar.dc.dsw.domain;
 
-import br.ufscar.dc.dsw.validation.UniqueCNPJ;
+import br.ufscar.dc.dsw.validation.UniqueCPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "Cliente")
 public class Cliente extends Usuario {
 
-//    @UniqueCPF(message = "{Unique.editora.CNPJ}")
+    @UniqueCPF(message = "{Unique.cliente.CPF}")
     @NotBlank
     @Size(min = 14, max = 14)
     @Column(unique = true)

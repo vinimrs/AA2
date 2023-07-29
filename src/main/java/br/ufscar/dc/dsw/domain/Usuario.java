@@ -1,5 +1,7 @@
 package br.ufscar.dc.dsw.domain;
 
+import br.ufscar.dc.dsw.validation.UniqueEmail;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -15,6 +17,7 @@ public abstract class Usuario extends AbstractEntity<Long> {
 	@Column(length = 20, unique = true)
 	private String username;
 
+	@UniqueEmail(message = "{Unique.user.email}")
 	@NotBlank
 	@Column(nullable = false, length = 40, unique = true)
 	private String email;

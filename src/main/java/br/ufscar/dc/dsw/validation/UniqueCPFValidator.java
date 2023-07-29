@@ -9,15 +9,15 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 @Component
-public class UniqueCPFValidator implements ConstraintValidator<UniqueCNPJ, String> {
+public class UniqueCPFValidator implements ConstraintValidator<UniqueCPF, String> {
 
 	@Autowired
 	private IClienteDAO dao;
 
 	@Override
-	public boolean isValid(String CNPJ, ConstraintValidatorContext context) {
+	public boolean isValid(String CPF, ConstraintValidatorContext context) {
 		if (dao != null) {
-			Cliente cliente = dao.findByCpf(CNPJ);
+			Cliente cliente = dao.findByCpf(CPF);
 			return cliente == null;
 		} else {
 			// Durante a execução da classe LivrariaMvcApplication
