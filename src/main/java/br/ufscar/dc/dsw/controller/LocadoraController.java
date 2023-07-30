@@ -71,34 +71,6 @@ public class LocadoraController {
     attr.addFlashAttribute("sucess", "locadora.create.sucess");
 
 
-    String emailCliente = "viniromualdo082@gmail.com";
-
-    String emailLocadora = "viniciusromualdo@estudante.ufscar.br";
-
-    try {
-
-      String emailDoSistema = "locadoradebicicletasdsw1@gmail.com";
-      String assuntoCliente = "Seu aluguel foi aprovado!";
-      String conteudoCliente = "Aproveite a sua bicicleta alugada na data ";
-
-      String assuntoLocadora = "Um aluguel foi aprovado!";
-      String conteudoLocadora = "O cliente ";
-
-      String resultMessage = "";
-
-      try {
-        EmailUtility.sendEmail(host, port, user, pass, emailCliente, assuntoCliente,
-            conteudoCliente, emailDoSistema);
-        EmailUtility.sendEmail(host, port, user, pass, emailLocadora, assuntoLocadora,
-            conteudoLocadora, emailDoSistema);
-        resultMessage = "A sua locacao foi cadastrada com sucesso!";
-      } catch (Exception ex) {
-        ex.printStackTrace();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
     return "redirect:/locadoras/listar";
   }
 
