@@ -17,11 +17,11 @@ public class FormularioLocadoraPage extends PageObject {
 
 
     public LocadorasPage cadastraLocadora(Locadora locadora) {
-        browser.findElement(By.id("cnpj")).sendKeys(locadora.getCnpj());
-        browser.findElement(By.id("nome")).sendKeys(locadora.getNome());
-        browser.findElement(By.id("email")).sendKeys(locadora.getEmail());
-        browser.findElement(By.id("senha")).sendKeys(locadora.getSenha());
-        browser.findElement(By.id("cidade")).sendKeys(locadora.getCidade());
+//        browser.findElement(By.id("cnpj")).sendKeys(locadora.getCnpj());
+//        browser.findElement(By.id("nome")).sendKeys(locadora.getNome());
+//        browser.findElement(By.id("email")).sendKeys(locadora.getEmail());
+//        browser.findElement(By.id("senha")).sendKeys(locadora.getSenha());
+//        browser.findElement(By.id("cidade")).sendKeys(locadora.getCidade());
 
         browser.findElement(By.id("submit-button")).click();
 

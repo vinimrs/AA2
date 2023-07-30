@@ -14,45 +14,47 @@ import br.ufscar.dc.dsw.security.UsuarioDetailsServiceImpl;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new UsuarioDetailsServiceImpl();
-	}
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UsuarioDetailsServiceImpl();
+    }
 
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(userDetailsService());
-		authProvider.setPasswordEncoder(passwordEncoder());
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
 
-		return authProvider;
-	}
+        return authProvider;
+    }
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider());
-	}
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-				http.authorizeRequests()
-				.antMatchers("/error", "/login/**", "/js/**", "/css/**", "/image/**", "/webjars/**").permitAll()
-				.antMatchers("/locacoes/**").hasRole("CLIENTE")
-				.antMatchers("/locacoes/listar/").hasRole("LOCADORA")
-				.antMatchers("/locadoras/**", "/clientes/**", "/admins/**").hasRole("ADMIN")
-				.anyRequest().authenticated()
-			.and()
-				.formLogin()
-				.loginPage("/login")
-				.permitAll()
-			.and()
-				.logout()
-				.logoutSuccessUrl("/")
-				.permitAll();
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/error", "/login/**", "/js/**", "/css/**", "/image/**",
+                        "/webjars/**", "/logout/**", "/explorar/**").permitAll()
+                .antMatchers("/locacoes/**").access("hasRole('CLIENTE')")
+                .antMatchers("/locacoes/listar/").hasRole("LOCADORA")
+                .antMatchers("/locadoras/**", "/clientes/**", "/admins/**").hasRole("ADMIN")
+                .antMatchers("/locadoras/listar/").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+                .permitAll();
+    }
 }

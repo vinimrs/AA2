@@ -11,6 +11,7 @@ import java.util.List;
 // page_url = http://localhost:8080/locadoras/lista
 public class ListaDeLocadorasPage extends PageObject {
     private static final String URL_LOCADORAS = BASE_URL + "locadoras/";
+
     public ListaDeLocadorasPage(WebDriver browser) {
         super(browser);
     }
@@ -21,30 +22,30 @@ public class ListaDeLocadorasPage extends PageObject {
 //    }
 
     public boolean isLocadoraListada(Locadora locadora) {
-      List<WebElement> linhas = this.browser.findElements(By.cssSelector("#tabela-locadoras tr:not(:first-child)"));
+        List<WebElement> linhas = this.browser.findElements(By.cssSelector("#tabela-locadoras tr:not(:first-child)"));
 
-      for (WebElement l: linhas) {
-        String idLinha = l.findElement(By.cssSelector("td:nth-child(1)")).getText();
-        String nomeLinha = l.findElement(By.cssSelector("td:nth-child(2)")).getText();
-        String cidadeLinha = l.findElement(By.cssSelector("td:nth-child(3)")).getText();
+        for (WebElement l : linhas) {
+            String idLinha = l.findElement(By.cssSelector("td:nth-child(1)")).getText();
+            String nomeLinha = l.findElement(By.cssSelector("td:nth-child(2)")).getText();
+            String cidadeLinha = l.findElement(By.cssSelector("td:nth-child(3)")).getText();
 
-        if(idLinha.equals(locadora.getId().toString())
-                && nomeLinha.equals(locadora.getNome())
-                && cidadeLinha.equals(locadora.getCidade())) {
-          return true;
+//        if(idLinha.equals(locadora.getId().toString())
+//                && nomeLinha.equals(locadora.getNome())
+//                && cidadeLinha.equals(locadora.getCidade())) {
+//          return true;
+//        }
         }
-      }
 
-      return false;
+        return false;
     }
 
-  public void adicionarFiltroDeCidade(String cidade) {
-    WebElement inputFiltro = browser.findElement(By.id("filtroCidade"));
-    inputFiltro.sendKeys(cidade);
+    public void adicionarFiltroDeCidade(String cidade) {
+        WebElement inputFiltro = browser.findElement(By.id("filtroCidade"));
+        inputFiltro.sendKeys(cidade);
 
-    WebElement botaoSubmit = browser.findElement(By.id("filtroCidade-button"));
-    botaoSubmit.click();
-  }
+        WebElement botaoSubmit = browser.findElement(By.id("filtroCidade-button"));
+        botaoSubmit.click();
+    }
 
 
 //  public FormularioLocadoraPage carregarFormularioDeAtualizacaoDaLocadora(Locadora locadora) {

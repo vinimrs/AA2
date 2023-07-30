@@ -12,50 +12,56 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = false) // pois a depender das regras aplicadas aqui, pode ocorrer inconsistências (sobreescrita)
+@Transactional(readOnly = false)
+// pois a depender das regras aplicadas aqui, pode ocorrer inconsistências (sobreescrita)
 public class LocadoraService implements ILocadoraService {
 
-	@Autowired
-	ILocadoraDAO dao;
+  @Autowired
+  ILocadoraDAO dao;
 
-	@Autowired
-	ILocacaoDAO locacaoDAO;
+  @Autowired
+  ILocacaoDAO locacaoDAO;
 
-	public void salvar(Locadora locadora) {
-		dao.save(locadora);
-	}
+  public void salvar(Locadora locadora) {
+    dao.save(locadora);
+  }
 
-	public void excluir(Long id) {
-		dao.deleteById(id);
-	}
+  public void excluir(Long id) {
+    dao.deleteById(id);
+  }
 
-	@Transactional(readOnly = true)
-	public List<Locacao> buscarLocacoesPorCnpj(String cnpj) {
-		return locacaoDAO.findAllByRentalCompany(dao.findByCnpj(cnpj));
-	}
+  @Transactional(readOnly = true)
+  public List<String> buscarCidades() {
+    return dao.findAllCities();
+  }
 
-	@Transactional(readOnly = true)
-	public List<Locadora> buscarPorCidade(String city) {
-		return dao.findAllByCity(city);
-	}
+  @Transactional(readOnly = true)
+  public List<Locacao> buscarLocacoesPorCnpj(String cnpj) {
+    return locacaoDAO.findAllByRentalCompany(dao.findByCnpj(cnpj));
+  }
 
-	@Transactional(readOnly = true)
-	public Locadora buscarPorCNPJ(String cnpj) {
-		return dao.findByCnpj(cnpj);
-	}
+  @Transactional(readOnly = true)
+  public List<Locadora> buscarPorCidade(String city) {
+    return dao.findAllByCity(city);
+  }
 
-	@Transactional(readOnly = true)
-	public Locadora buscarPorEmail(String email) {
-		return dao.findByEmail(email);
-	}
+  @Transactional(readOnly = true)
+  public Locadora buscarPorCNPJ(String cnpj) {
+    return dao.findByCnpj(cnpj);
+  }
 
-	@Transactional(readOnly = true)
-	public Locadora buscarPorId(Long id) {
-		return dao.findById(id.longValue());
-	}
+  @Transactional(readOnly = true)
+  public Locadora buscarPorEmail(String email) {
+    return dao.findByEmail(email);
+  }
 
-	@Transactional(readOnly = true)
-	public List<Locadora> buscarTodos() {
-		return dao.findAll();
-	}
+  @Transactional(readOnly = true)
+  public Locadora buscarPorId(Long id) {
+    return dao.findById(id.longValue());
+  }
+
+  @Transactional(readOnly = true)
+  public List<Locadora> buscarTodos() {
+    return dao.findAll();
+  }
 }
