@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:form="http://www.w3.org/1999/html">
+<head>
+	<meta charset="UTF-8" />
+</head>
+<body>
+<section class="layout-content" layout:fragment="corpo">
+	<nav class="navbar navbar-expand-md bg-light">
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><i class="oi oi-caret-right"></i>
+					<span th:text="#{locacao.cadastrar.label}"></span></li>
+			</ul>
+			<a class="btn btn-primary btn-md" th:href="@{/locacoes/listar}"
+			   role="button"> <span class="oi oi-spreadsheet" title="Listar"
+				aria-hidden="true"></span> <span th:text="#{locacao.listar.label}"></span>
+			</a>
+		</div>
+	</nav>
+
+	<div class="container" id="cadastro">
+
+		<div th:replace="fragments/alert"></div>
+
+		<form
+				th:action="@{${locacao.id == null ? '/locacoes/salvar' : '/locacoes/editar'}}"
+				th:object="${locacao}" method="POST">
+
+			<input type="hidden" th:field="*{client}" th:value="${cliente}" />
+
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					<label th:text="#{locacao.locadora.label}" for="locadora"></label>
+					<select th:value="${locadora}" th:field="*{rentalCompany}" autofocus="autofocus"
+							name="locadora" id="locadora" class="form-control w-100"
+							th:classappend="${#fields.hasErrors('rentalCompany')} ? is-invalid"
+					>
+						<option th:each="locOp : ${locadoras}" th:selected="${locadora == locOp} ? true : false"
+								th:value="${locOp.getId()}"
+								th:text="${locOp.getName()}">
+						</option>
+					</select>
+
+					<div class="invalid-feedback">
+						<span th:errors="*{rentalCompany}"></span>
+					</div>
+				</div>
+
+				<div class="form-group col-md-12">
+					<label th:text="#{locacao.data.label}" for="data"></label>
+					<input type="date" class="form-control" id="data" autofocus="autofocus"
+						   th:field="*{date}" th:placeholder="#{locacao.data.label}"
+						   th:classappend="${#fields.hasErrors('date')} ? is-invalid"
+						   th:attr="min=${minData}" onchange="updateMin()" />
+
+					<div class="invalid-feedback">
+						<span th:errors="*{date}"></span>
+					</div>
+				</div>
+
+				<div class="form-group col-md-12">
+					<label th:text="#{locacao.hora.label}" for="hora"></label>
+					<input type="time" class="form-control" id="hora" autofocus="autofocus"
+						   th:field="*{hour}" th:placeholder="#{locacao.hora.label}"
+						   th:classappend="${#fields.hasErrors('hour')} ? is-invalid"
+						   th:attr="min=${minHora},
+						   			step=${3600}" />
+					<div class="invalid-feedback">
+						<span th:errors="*{hour}"></span>
+					</div>
+				</div>
+			</div>
+
+			<script th:inline="javascript">
+				function updateMin() {
+					const currentDate = document.getElementById("data").value;
+
+					// Get minHour from controller
+					const minHora = '[[${minHora}]]'
+					console.log('minHora: ', minHora)
+					const today = new Date();
+
+					console.log('minData: ', currentDate)
+					console.log('today: ', today.toISOString().split('T')[0])
+					console.log('minData === today: ', currentDate === today.toISOString().split('T')[0])
+					// If minData is equal today, set minHora to current hour
+					if (currentDate === today.toISOString().split('T')[0]) {
+						document.getElementById("hora").setAttribute("min", minHora);
+					} else {
+						document.getElementById("hora").setAttribute("min", "00:00");
+					}
+				}
+			</script>
+
+			<input type="hidden" id="id" th:field="*{id}" />
+			<button type="submit" th:text="#{button.salvar.label}"
+					class="btn btn-primary btn-sm"></button>
+		</form>
+	</div>
+</section>
+</body>
+</html>

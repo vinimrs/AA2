@@ -23,7 +23,7 @@ public class LocacaoService implements ILocacaoService {
 	}
 
 	public void excluir(Long id) {
-		dao.deleteById(id);
+		dao.deleteById(id.longValue());
 	}
 
 	@Transactional(readOnly = true)

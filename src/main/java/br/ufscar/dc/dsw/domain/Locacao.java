@@ -1,5 +1,7 @@
 package br.ufscar.dc.dsw.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -10,12 +12,12 @@ import java.time.LocalTime;
         uniqueConstraints = @UniqueConstraint(columnNames = { "hour", "date", "client_id"})
 )
 public class Locacao extends AbstractEntity<Long> {
-
     @NotNull
     @Column(nullable = false, columnDefinition = "Time", name = "hour")
     private LocalTime hour;
 
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false, columnDefinition = "Date", name = "date")
     private LocalDate date;
 
@@ -28,6 +30,7 @@ public class Locacao extends AbstractEntity<Long> {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Cliente client;
+
 
     public LocalTime getHour() {
         return hour;
