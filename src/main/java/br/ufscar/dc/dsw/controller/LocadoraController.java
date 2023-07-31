@@ -31,22 +31,6 @@ public class LocadoraController {
   @Autowired
   private BCryptPasswordEncoder encoder;
 
-  @Autowired
-  ServletContext context;
-
-  private String host;
-  private String port;
-  private String user;
-  private String pass;
-
-  @PostConstruct
-  public void initialize() {
-    // reads SMTP server setting from web.xml file
-    host = context.getInitParameter("host");
-    port = context.getInitParameter("port");
-    user = context.getInitParameter("user");
-    pass = context.getInitParameter("pass");
-  }
 
   @GetMapping("/cadastrar")
   public String cadastrar(Locadora locadora) {

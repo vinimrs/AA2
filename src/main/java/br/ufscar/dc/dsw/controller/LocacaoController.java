@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import br.ufscar.dc.dsw.domain.Cliente;
@@ -12,6 +14,7 @@ import br.ufscar.dc.dsw.domain.Locadora;
 import br.ufscar.dc.dsw.service.spec.IClienteService;
 import br.ufscar.dc.dsw.service.spec.ILocacaoService;
 import br.ufscar.dc.dsw.service.spec.ILocadoraService;
+import br.ufscar.dc.dsw.util.EmailUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -37,6 +40,22 @@ public class LocacaoController {
   @Autowired
   private ILocadoraService locadoraService;
 
+  @Autowired
+  ServletContext context;
+
+  private String host;
+  private String port;
+  private String user;
+  private String pass;
+
+  @PostConstruct
+  public void initialize() {
+    // reads SMTP server setting from web.xml file
+    host = context.getInitParameter("host");
+    port = context.getInitParameter("port");
+    user = context.getInitParameter("user");
+    pass = context.getInitParameter("pass");
+  }
 
   private Cliente getCliente() {
     UsuarioDetails usuarioDetails = (UsuarioDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -66,7 +85,13 @@ public class LocacaoController {
     // Hour always with HH:00
     LocalTime hora = LocalTime.now().withMinute(0).plusHours(1);
 
-    locacao.setClient(this.getCliente());
+    Cliente cliente = getCliente();
+
+    if (cliente == null) {
+      return "redirect:/locacoes/listar";
+    }
+
+    locacao.setClient(cliente);
     locacao.setDate(data);
     locacao.setHour(hora);
 
@@ -102,8 +127,45 @@ public class LocacaoController {
     }
 
     service.salvar(locacao);
-
     attr.addFlashAttribute("sucess", "locacao.create.sucess");
+
+    try {
+
+      Cliente cliente = locacao.getClient();
+      Locadora locadora = locacao.getRentalCompany();
+
+      String emailCliente = cliente.getEmail();
+      String emailLocadora = locadora.getEmail();
+
+      System.out.println(emailCliente + emailLocadora);
+
+      String emailDoSistema = "locadoradebicicletasdsw1@gmail.com";
+      String assuntoCliente = "Seu aluguel foi aprovado!";
+      String conteudoCliente = "Aproveite a sua bicicleta alugada na data " + locacao.getDate() +
+          " às " + locacao.getHour() +
+          " na locadora " + locadora.getName() + "!";
+
+      String assuntoLocadora = "Um aluguel foi aprovado!";
+      String conteudoLocadora = "O cliente " + cliente.getName() + " alugou uma bicicleta na data " + locacao.getDate() +
+          " às " + locacao.getHour() +
+          " na sua locadora!";
+
+
+      String resultMessage = "";
+
+      try {
+        EmailUtility.sendEmail(host, port, user, pass, emailCliente, assuntoCliente,
+            conteudoCliente, emailDoSistema);
+        EmailUtility.sendEmail(host, port, user, pass, emailLocadora, assuntoLocadora,
+            conteudoLocadora, emailDoSistema);
+        resultMessage = "A sua locacao foi cadastrada com sucesso!";
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
     return "redirect:/locacoes/listar";
   }
 
