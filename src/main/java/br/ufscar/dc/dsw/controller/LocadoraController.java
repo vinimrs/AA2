@@ -31,22 +31,6 @@ public class LocadoraController {
   @Autowired
   private BCryptPasswordEncoder encoder;
 
-  @Autowired
-  ServletContext context;
-
-  private String host;
-  private String port;
-  private String user;
-  private String pass;
-
-  @PostConstruct
-  public void initialize() {
-    // reads SMTP server setting from web.xml file
-    host = context.getInitParameter("host");
-    port = context.getInitParameter("port");
-    user = context.getInitParameter("user");
-    pass = context.getInitParameter("pass");
-  }
 
   @GetMapping("/cadastrar")
   public String cadastrar(Locadora locadora) {
@@ -70,34 +54,6 @@ public class LocadoraController {
     service.salvar(locadora);
     attr.addFlashAttribute("sucess", "locadora.create.sucess");
 
-
-    String emailCliente = "viniromualdo082@gmail.com";
-
-    String emailLocadora = "viniciusromualdo@estudante.ufscar.br";
-
-    try {
-
-      String emailDoSistema = "locadoradebicicletasdsw1@gmail.com";
-      String assuntoCliente = "Seu aluguel foi aprovado!";
-      String conteudoCliente = "Aproveite a sua bicicleta alugada na data ";
-
-      String assuntoLocadora = "Um aluguel foi aprovado!";
-      String conteudoLocadora = "O cliente ";
-
-      String resultMessage = "";
-
-      try {
-        EmailUtility.sendEmail(host, port, user, pass, emailCliente, assuntoCliente,
-            conteudoCliente, emailDoSistema);
-        EmailUtility.sendEmail(host, port, user, pass, emailLocadora, assuntoLocadora,
-            conteudoLocadora, emailDoSistema);
-        resultMessage = "A sua locacao foi cadastrada com sucesso!";
-      } catch (Exception ex) {
-        ex.printStackTrace();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
 
     return "redirect:/locadoras/listar";
   }
