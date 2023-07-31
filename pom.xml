@@ -10,9 +10,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>br.ufscar.dc</groupId>
-    <artifactId>LivrariaMVC</artifactId>
+    <artifactId>LocadoraMVC</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Livraria MVC (v3)</name>
+    <name>Locadora de bicicletas virtual</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -105,6 +105,7 @@
             <scope>runtime</scope>
         </dependency>
         -->
+<<<<<<< HEAD
 
         <!-- Driver JDBC (banco de dados MySQL) -->
 
@@ -179,4 +180,63 @@
     </build>
 
 
+=======
+
+        <!-- Driver JDBC (banco de dados MySQL) -->
+
+        <!--		<dependency>-->
+        <!--			<groupId>mysql</groupId>-->
+        <!--			<artifactId>mysql-connector-java</artifactId>-->
+        <!--			<scope>runtime</scope>-->
+        <!--		</dependency>-->
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.6.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.10.0</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <!--			<plugin>-->
+            <!--				<groupId>org.codehaus.mojo</groupId>-->
+            <!--				<artifactId>native2ascii-maven-plugin</artifactId>-->
+            <!--				<version>1.0-beta-1</version>-->
+            <!--				<executions>-->
+            <!--					<execution>-->
+            <!--						<id>native2ascii-utf8-resources</id>-->
+            <!--						<goals>-->
+            <!--							<goal>native2ascii</goal>-->
+            <!--						</goals>-->
+            <!--						<configuration>-->
+            <!--							<dest>target/classes</dest>-->
+            <!--							<src>src/main/resources</src>-->
+            <!--							<encoding>UTF-8</encoding>-->
+            <!--						</configuration>-->
+            <!--					</execution>-->
+            <!--				</executions>-->
+            <!--			</plugin>-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+>>>>>>> 404def6 (atualizando nomes do artefato)
 </project>

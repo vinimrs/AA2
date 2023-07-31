@@ -6,13 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="LivrariaMVC" />
+        <module name="LocadoraMVC" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="LivrariaMVC" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="LivrariaMVC" options="-parameters" />
+      <module name="LocadoraMVC" options="-parameters" />
     </option>
   </component>
 </project>
