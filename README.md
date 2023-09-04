@@ -8,7 +8,7 @@
    <img src="https://img.shields.io/github/license/vinimrs/VinChat?color=black" align="center" />
 </h1>
 
-Projeto de implementação de uma aplicação web de um sistema para locações de bicicletas online utilizando as tecnologias **Java Spring MVC e Thymeleaf**, com objetivo de comtemplar as principais responsabilidades de uma locação de bicicleta explorando e conhecendo melhor como funciona o desenvolvimento de sistemas web.
+Projeto de implementação de uma aplicação web de um sistema para locações de bicicletas online utilizando as tecnologias **Java Spring MVC e Thymeleaf**, com objetivo de contemplar as principais responsabilidades de uma locação de bicicleta explorando e conhecendo melhor como funciona o desenvolvimento de sistemas web.
 
 <p align="center">
    <img src="https://github.com/vinimrs/AA2/assets/92659173/df480dc4-a9af-4ed0-96b7-f967ca7d5eed"  width="800"/>
@@ -40,7 +40,7 @@ As funcinalidades deste sistema foram baseadas no [documento de requisitos](http
 
 ## :zap: Tecnologias
 
-- [Spring MVC]
+- [Spring Boot]
 - [Thymeleaf]
 
 <!--
