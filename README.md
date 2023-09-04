@@ -40,7 +40,7 @@ As funcinalidades deste sistema foram baseadas no [documento de requisitos](http
 
 ## :zap: Tecnologias
 
-- [Spring Boot]
+- [Spring MVC]
 - [Thymeleaf]
 
 <!--
